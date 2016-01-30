@@ -8,6 +8,8 @@ typedef struct _light_t {
     uint8_t is_active_high:1;
 } light_t;
 
+#define UNUSED_PIN_NO	(255U)
+
 static light_t m_light;
 
 void light_timer_interrupt(void);
@@ -27,6 +29,9 @@ void set_color(void* args)
   for(i = 0; i < 3; i++)
   {
       nrf_gpiote_task_disable(i);
+	  
+	  if (light->pins[i]==UNUSED_PIN_NO)
+		  continue;
       nrf_gpio_cfg_output(light->pins[i]);
       
       if(light->values[i] == 0x00)
@@ -83,9 +88,10 @@ uint32_t light_on( void )
   
   PWM_TIMER->POWER = 1;
   
-  PWM_TIMER->PRESCALER = 7; // 256k
+  PWM_TIMER->PRESCALER = 7; // 
   PWM_TIMER->BITMODE = TIMER_BITMODE_BITMODE_16Bit;
   PWM_TIMER->MODE = TIMER_MODE_MODE_Timer;
+
   
   PWM_TIMER->CC[3] = 255;
 
@@ -116,6 +122,8 @@ void light_off( void )
   for(i = 0; i < 3; i++)
   {
     nrf_gpiote_task_disable(i);
+	if (m_light.pins[i]==UNUSED_PIN_NO)
+		  continue;
     nrf_gpio_cfg_output(m_light.pins[i]);
     nrf_gpio_pin_write(m_light.pins[i], (m_light.is_active_high)?0:1);
   }
