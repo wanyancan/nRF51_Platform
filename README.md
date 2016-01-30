@@ -3,7 +3,7 @@
 JUMA.IO Platform for nRF51 SoC.
 
 This is the most Easy-to-Use Bluetooth Smart 4.0 SDK for embedded development in the world.
-##Building ：
+##Building:
 ********
 
 If you plan to develop an app using this SDK, please use the stable branch or the last released tarball. The master branch is continuously evolving, could be unstable and could change very often.
@@ -33,7 +33,7 @@ Interface/Project/juma_sdk.uvprojx
 ``
 Platform/Project/device.uvprojx
 ``
-4. copy 'Example/projects' to folder 'Product/sdk/' and build your own app.
+4. copy 'Product\Examples\Template' to folder 'Product\Projects' and build your own app.
 Voila!
 
 ##More Info:
